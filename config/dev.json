@@ -1,0 +1,13 @@
+{
+    "somePrivate": "wow",
+    "someField": "boop",
+    "someLoldWoop": "dsadsada",
+
+    "nextPublic": {
+        "kek": "dsada",
+        "notKek": "dsadsadasdasda",
+        "bryg": {
+            "dsada": "dsada"
+        }
+    }
+}
