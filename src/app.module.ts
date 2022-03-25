@@ -1,25 +1,31 @@
 import { AppStore } from './app.store';
-import { baseHydrate, IStore, IS_STORE_TYPE } from './common/store';
+import { baseHydrate, IS_STORE_TYPE, IStore } from './common/store';
 
+/**
+ * App Module
+ */
 class AppModule {
   private static _instance: AppStore;
 
-  // @ts-ignore
-  private static deepHydrate(target, source, global) {
+  private static deepHydrate<T, S>(
+    target: T | (T & IStore<T>),
+    source: S,
+    global: AppStore
+  ) {
     Object.entries(target)
-      // @ts-ignore
-      .filter(item => item[1].constructor[IS_STORE_TYPE])
-      // @ts-ignore
-      .forEach(([key, store]: [string, IStore<any>]) => {
-        if (store.__hydrate) {
-          store.__hydrate((source as any)[key], global);
+      .filter(([_, store]) => store.constructor[IS_STORE_TYPE])
+      .forEach(([key, store]: [string, T | (T & IStore<T>)]) => {
+        const _source = (source as any)[key];
+
+        if ((store as T & IStore<T>).hydrate) {
+          (store as T & IStore<T>).hydrate(_source, global);
         } else {
-          baseHydrate((source as any)[key], store);
+          baseHydrate<typeof _source, typeof store>(_source, store);
         }
 
-        store.__global = global;
+        (store as T & IStore<T>).global = global;
 
-        this.deepHydrate(store, (source as any)[key], global);
+        this.deepHydrate<typeof store, typeof _source>(store, _source, global);
       });
   }
 
@@ -29,7 +35,11 @@ class AppModule {
     this._instance = new AppStore();
 
     if (typeof window != 'undefined') {
-      this.deepHydrate(this._instance, initialStore, initialStore);
+      this.deepHydrate<AppStore, AppStore>(
+        this._instance,
+        initialStore,
+        this._instance
+      );
     }
 
     return this._instance;
