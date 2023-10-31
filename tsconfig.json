@@ -21,8 +21,6 @@
       "@components/*": ["./src/components/*"],
       "@packages/*": ["./src/packages/*"],
       "@api/*": ["./src/api/*"],
-      "@auth/*": ["./src/modules/auth/*"],
-      "@auth": ["./src/modules/auth/index"],
       "@home": ["./src/modules/home/index"],
       "@home/*": ["./src/modules/home/*"]
     }
