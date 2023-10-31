@@ -1,13 +1,13 @@
 import { enableStaticRendering } from 'mobx-react-lite';
 import App, { AppContext } from 'next/app';
 import { StoreContext } from 'src/app.context';
-import { AppModule } from 'src/app.module';
+import { initializeStore } from 'src/app.module';
 
 enableStaticRendering(typeof window == 'undefined');
 
 // @ts-ignore
 const _App = ({ Component, pageProps, store }) => {
-  const _store = AppModule.getStore(store);
+  const _store = initializeStore(store);
 
   return (
     <StoreContext.Provider value={_store}>
@@ -17,7 +17,7 @@ const _App = ({ Component, pageProps, store }) => {
 };
 
 _App.getInitialProps = async (appContext: AppContext) => {
-  const store = AppModule.getStore(null);
+  const store = initializeStore(null);
 
   // @ts-ignore
   appContext.ctx.store = store;

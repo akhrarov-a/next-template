@@ -1,4 +1,5 @@
 import { useStore } from 'src/app.context';
+import { useEffect } from 'react';
 
 /**
  * <Home /> props
@@ -10,6 +11,10 @@ const useHomeProps = () => {
   const onPlusClick = () => {
     home.count();
   };
+
+  useEffect(() => {
+    console.log(process.env.stageName);
+  }, []);
 
   return {
     counter,

@@ -22,7 +22,6 @@
       "@packages/*": ["./src/packages/*"],
       "@api/*": ["./src/api/*"],
       "@auth/*": ["./src/modules/auth/*"],
-      "@profile/*": ["./src/modules/profile/*"],
       "@auth": ["./src/modules/auth/index"],
       "@home": ["./src/modules/home/index"],
       "@home/*": ["./src/modules/home/*"]
