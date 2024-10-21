@@ -1,6 +1,5 @@
 {
-  "name": "next-based-template",
-  "private": true,
+  "name": "next-template",
   "scripts": {
     "pre:start": "node ./scripts/update-module-paths.js && node ./scripts/ensure-configurations.js && node ./scripts/json-to-dotenv.js",
     "update:module:paths": "node ./scripts/update-module-paths.js",
